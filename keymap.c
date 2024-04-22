@@ -186,6 +186,9 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
 }
 
+
+/// LAYER DISPLAY ///
+
 // #define L_BASE 0
 // #define L_LOWER 2
 // #define L_RAISE 4
@@ -268,6 +271,7 @@ void oled_render_simplified_layerstate_bot(void) {
 }
 
 
+/// KEYLOGGER ///
 // char keylog_str[24] = {"H"};
 char keylog_char[2];
 
@@ -313,7 +317,7 @@ void set_keylogchar(uint16_t keycode, keyrecord_t *record) {
     name = code_to_name[keycode];
   }
     keylog_char[0] = name;
-    keylog_char[1] = '\0'; // Null-terminate the string
+    keylog_char[1] = '\0';
 }
 void oled_render_keylogchar_top(void) {
     oled_set_cursor(oled_max_chars()/2, 1);
@@ -324,7 +328,9 @@ void oled_render_keylogchar_bot(void) {
     oled_write(keylog_char, false);
 }
 
-char modstate_str[32] = {};
+
+/// MODSTATE ///
+char modstate_str[32];
 static uint8_t active_mods;
 void update_modstate(void) {
     char temp_str[32];
@@ -349,18 +355,20 @@ void update_modstate(void) {
 
     strlcat(modstate_str, temp_str, sizeof(modstate_str));
 }
-void matrix_scan_user(void) {
-    active_mods = get_mods(); // Update the state of active modifier keys
-    update_modstate(); // Update the keylog string based on active modifier keys
-}
 
 void oled_render_modstate(void) {
     oled_write(modstate_str, false);
 }
 
-// void oled_render_modstate_offhand(void) {
-//     oled_set_cursor(1, (oled_max_lines()/2));
-//     oled_write(modstate_str, true);
+void oled_render_modstate_offhand(void) {
+    oled_set_cursor(1, (oled_max_lines()/2)+1);
+    oled_write(modstate_str, false);
+}
+
+
+// void matrix_scan_user(void) {
+//     active_mods = get_mods();
+//     update_modstate();
 // }
 
 // void render_bootmagic_status(bool status) {
@@ -377,6 +385,9 @@ void oled_render_modstate(void) {
 //         oled_write_ln_P(logo[1][1], false);
 //     }
 // }
+
+
+/// LOGO ///
 
 void oled_render_logo(void) {
     // static const char PROGMEM crkbd_logo[] = {
@@ -458,8 +469,7 @@ void oled_render_logo(void) {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     };
 
-    // oled_write_P(epd_bitmap_archLogo, false);
-    oled_clear();
+    // oled_clear();
     switch(get_highest_layer(layer_state)){
         case _GAMING:
         case _GAMING_NUM:
@@ -469,25 +479,24 @@ void oled_render_logo(void) {
             oled_write_raw_P(epd_bitmap_oledArchLogo, sizeof(epd_bitmap_oledArchLogo));
             break;
     }
-    // if(get_highest_layer(layer_state)==_GAMING || get_highest_layer(layer_state)==_GAMING_NUM){
-    //    oled_clear();
-    //    oled_write_raw_P(epd_bitmap_oledSteamLogo, sizeof(epd_bitmap_oledSteamLogo));
-    // }else{
-    //     oled_clear();
-    //     oled_write_raw_P(epd_bitmap_oledArchLogo, sizeof(epd_bitmap_oledArchLogo));
-    // }
 }
 
+
+
 bool oled_task_user(void) {
+    active_mods = get_mods();
+    update_modstate();
+
     if (is_keyboard_master()) {
         oled_render_layerstate();
-        oled_render_modstate();
+        // oled_render_modstate();
+        oled_render_modstate_offhand();
     } else {
         oled_render_logo();
         oled_render_keylogchar_top();
         // oled_render_keylogchar_bot();
         // oled_render_modstate();
-        // oled_render_modstate_offhand();
+        oled_render_modstate_offhand();
         oled_render_simplified_layerstate_bot();
     }
     return false;
