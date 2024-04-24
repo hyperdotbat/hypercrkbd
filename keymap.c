@@ -47,6 +47,11 @@ enum layers{
 //     return true;
 // };
 
+#define MOD1KC MOD_LCTL
+#define MOD2KC MOD_LSFT
+#define MOD3KC MOD_LALT
+#define MOD4KC MOD_LGUI
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   [_BASE] = LAYOUT_split_3x6_3(
 //   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -66,11 +71,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_ESC,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,  KC_TAB,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I, KC_O, KC_DEL,
+      MT(MOD_LSFT, KC_TAB),    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I, KC_O, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    MT(MOD_LGUI, KC_Z),    MT(MOD_LALT, KC_X),    MT(MOD_LSFT, KC_C),    MT(MOD_LCTL, KC_D),    KC_V,                         KC_K,    MT(MOD_LCTL, KC_H), MT(MOD_LSFT, KC_COMM),  MT(MOD_LALT, KC_DOT), MT(MOD_LGUI, KC_SLSH),  MO(_FUNC),
+      KC_LCTL,    MT(MOD4KC, KC_Z),    MT(MOD3KC, KC_X),    MT(MOD2KC, KC_C),    MT(MOD1KC, KC_D),    KC_V,                         KC_K,    MT(MOD1KC, KC_H), MT(MOD2KC, KC_COMM),  MT(MOD3KC, KC_DOT), MT(MOD4KC, KC_SLSH),  MO(_FUNC),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          MT(MOD_LSFT, KC_LGUI),   KC_SPC,  MO(_FIRST),     MT(MO(_SECOND), KC_ENT),   KC_BSPC, MT(MOD_RALT, KC_TAB)
+                                          MT(MOD_LSFT, KC_LGUI),   KC_SPC,  MO(_FIRST),     LT(_SECOND, KC_ENT),   KC_BSPC, MT(MOD_RALT, KC_TAB)
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -106,9 +111,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_4,      KC_3,    KC_2,   KC_1,     KC_EQL,                      KC_HOME, KC_LEFT, KC_DOWN,  KC_RIGHT,  KC_UP, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, KC_LALT, KC_TAB,    KC_9,     KC_0,  KC_DOT,                      KC_LALT, KC_END, KC_COMM, KC_DOT, KC_SLSH, _______,
+      KC_LCTL, MT(MOD4KC, KC_TAB), KC_LALT,   MT(MOD2KC, KC_0),     MT(MOD1KC, KC_9),  KC_DOT,                      KC_LALT, MT(MOD1KC, KC_END), MT(MOD2KC, KC_COMM), MT(MOD3KC, KC_DOT), MT(MOD4KC, KC_SLSH), _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          MT(MOD_LSFT, KC_LGUI), KC_SPC,  _______,     KC_ENT,   KC_BSPC, MO(_SECOND)  
+                                          MT(MOD_LSFT, KC_LGUI), LT(_FUNC, KC_SPC),  _______,     KC_ENT,   KC_BSPC, MO(_SECOND)  
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -118,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT, KC_BSLS, KC_AMPR, KC_LPRN, KC_RPRN, KC_TILD,                      KC_HOME, KC_LEFT, KC_DOWN,  KC_RIGHT,  KC_UP, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_SCLN,                      KC_LALT, KC_END, KC_COMM, KC_DOT, KC_SLSH, _______,
+      KC_LCTL, MT(MOD4KC, KC_LCBR), MT(MOD3KC, KC_RCBR), MT(MOD2KC, KC_LBRC), MT(MOD1KC, KC_RBRC), KC_SCLN,                      KC_LALT, MT(MOD1KC, KC_END), MT(MOD2KC, KC_COMM), MT(MOD3KC, KC_DOT), MT(MOD4KC, KC_SLSH), _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           MT(MOD_LSFT, KC_LGUI),   MO(_FUNC),  KC_SPC,     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -132,6 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  MO(_FUNC),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                        //   KC_LALT,   LT(_GAMING_NUM, KC_SPC),  MO(_GAMING_NUM),     KC_ENT,   KC_BSPC, TO(_GAMING_NUM)
                                           KC_LALT,   KC_SPC,  MO(_GAMING_NUM),     KC_ENT,   KC_BSPC, TO(_GAMING_NUM)
                                       //`--------------------------'  `--------------------------'
 
@@ -139,11 +145,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_GAMING_NUM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_LGUI,    KC_5,    KC_1,    KC_W,    KC_2,    KC_3,                         KC_MUTE,    KC_PGDN,    KC_INS,    KC_PGUP,   KC_RSFT,  KC_TAB,
+       KC_LGUI,    KC_9,    KC_1,    KC_W,    KC_2,    KC_8,                         KC_MUTE,    KC_PGDN,    KC_INS,    KC_PGUP,   KC_RSFT,  KC_TAB,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TAB,       KC_6,    KC_A,    KC_S,    KC_D,    KC_4,                         KC_HOME, KC_LEFT, KC_DOWN,  KC_RIGHT,  KC_UP, KC_PSCR,
+      KC_TAB,       KC_5,    KC_A,    KC_S,    KC_D,    KC_6,                         KC_HOME, KC_LEFT, KC_DOWN,  KC_RIGHT,  KC_UP, KC_PSCR,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_LSFT,    KC_8,    KC_0,    KC_9,    KC_7,                         KC_F16,  KC_END, KC_COMM,  KC_DOT, KC_SLSH,  TG(_GAMING_NUM),
+      KC_LCTL,    KC_LSFT,    KC_4,    KC_0,    KC_3,    KC_7,                         KC_F16,  KC_END, KC_COMM,  KC_DOT, KC_SLSH,  TG(_GAMING_NUM),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LALT,   KC_SPC,  _______,     KC_ENT,   KC_BSPC, KC_LGUI
                                       //`--------------------------'  `--------------------------'
@@ -223,10 +229,10 @@ void oled_render_layerstate(void) {
             // oled_write_ln_P(PSTR("D  A\ne\nf\na\nu\nl\nt"), false);
             break;
         case _FIRST:
-            oled_write_ln_P(PSTR("N  1\nu\nm\nb\ne\nr\ns"), false);
+            oled_write_ln_P(PSTR("N  7\nu\nm\nb\ne\nr\ns"), false);
             break;
         case _SECOND:
-            oled_write_ln_P(PSTR("S  #\ny\nm\nb\no\nl\ns"), false);
+            oled_write_ln_P(PSTR("S  @\ny\nm\nb\no\nl\ns"), false);
             break;
         case _GAMING:
             oled_write_ln_P(PSTR("G\na\nm\ne"), false);
@@ -250,16 +256,16 @@ void oled_render_simplified_layerstate_bot(void) {
             // oled_write_ln_P(PSTR("A"), false);
             break;
         case _FIRST:
-            oled_write_ln_P(PSTR("1"), false);
+            oled_write_ln_P(PSTR("7"), false);
             break;
         case _SECOND:
-            oled_write_ln_P(PSTR("#"), false);
+            oled_write_ln_P(PSTR("@"), false);
             break;
         // case _GAMING:
         //     oled_write_ln_P(PSTR("G"), false);
         //     break;
         case _GAMING_NUM:
-            oled_write_ln_P(PSTR("1"), false);
+            oled_write_ln_P(PSTR("7"), false);
             break;
         case _FUNC:
             oled_write_ln_P(PSTR("Fn"), false);
@@ -281,14 +287,16 @@ char keylog_char[2];
 //     'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
 //     '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
 //     'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
-//     '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
+//     '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '
+//};
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'A', 'B', 'C', 'D', 'E', 'F',
     'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
     'Q', 'W', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
     '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
     ' ', ' ', ' ', ' ', '_', '-', '=', '[', ']', '\\',
-    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
+    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '
+};
 
 // void set_keylog(uint16_t keycode, keyrecord_t *record) {
 //   char name = ' ';
@@ -335,8 +343,6 @@ static uint8_t active_mods;
 void update_modstate(void) {
     char temp_str[32];
     temp_str[0] = '\0';
-    strcat(temp_str, "\n");
-    // strlcat(temp_str, "\n", sizeof(temp_str));
 
     if ((active_mods & MOD_BIT(KC_LCTL)) || (active_mods & MOD_BIT(KC_RALT))) {
         strlcat(temp_str, "\nCtrl", sizeof(temp_str));
@@ -361,7 +367,7 @@ void oled_render_modstate(void) {
 }
 
 void oled_render_modstate_offhand(void) {
-    oled_set_cursor(1, (oled_max_lines()/2)+1);
+    oled_set_cursor(1, (oled_max_lines()/2)+2);
     oled_write(modstate_str, false);
 }
 
