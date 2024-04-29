@@ -69,13 +69,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ///Bottom row mods
   [_BASE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,  KC_TAB,
+      LT(_FUNC, KC_ESC),    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                         KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN,  KC_TAB,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       MT(MOD_LSFT, KC_TAB),    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                         KC_M,    KC_N,    KC_E,    KC_I, KC_O, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    MT(MOD4KC, KC_Z),    MT(MOD3KC, KC_X),    MT(MOD2KC, KC_C),    MT(MOD1KC, KC_D),    KC_V,                         KC_K,    MT(MOD1KC, KC_H), MT(MOD2KC, KC_COMM),  MT(MOD3KC, KC_DOT), MT(MOD4KC, KC_SLSH),  MO(_FUNC),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          MT(MOD_LSFT, KC_LGUI),   KC_SPC,  MO(_FIRST),     LT(_SECOND, KC_ENT),   KC_BSPC, MT(MOD_RALT, KC_TAB)
+                                          MT(MOD_LSFT, KC_LGUI),   LT(_SECOND, KC_SPC),  MO(_FIRST),     LT(_SECOND, KC_ENT),   KC_BSPC, MT(MOD_RALT, KC_TAB)
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -107,9 +107,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FIRST] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,    KC_8,    KC_7,    KC_6,    KC_5,    KC_MINS,                         KC_MUTE,    KC_PGDN,    KC_INS,    KC_PGUP,    KC_RSFT, KC_TAB,
+       KC_ESC,    KC_8,    KC_7,    KC_6,    KC_5,    KC_EQL,                         KC_MUTE,    KC_PGDN,    KC_INS,    KC_PGUP,    KC_RSFT, KC_TAB,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_4,      KC_3,    KC_2,   KC_1,     KC_EQL,                      KC_HOME, KC_LEFT, KC_DOWN,  KC_RIGHT,  KC_UP, KC_DEL,
+      KC_LSFT,    KC_4,      KC_3,    KC_2,   KC_1,     KC_MINS,                      KC_HOME, KC_LEFT, KC_DOWN,  KC_RIGHT,  KC_UP, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL, MT(MOD4KC, KC_TAB), KC_LALT,   MT(MOD2KC, KC_0),     MT(MOD1KC, KC_9),  KC_DOT,                      KC_LALT, MT(MOD1KC, KC_END), MT(MOD2KC, KC_COMM), MT(MOD3KC, KC_DOT), MT(MOD4KC, KC_SLSH), _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -121,9 +121,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB, KC_GRV,  KC_EXLM, KC_AT,  KC_HASH, KC_DLR,                      KC_PERC, KC_CIRC, KC_ASTR, KC_MINS, KC_EQL, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, KC_BSLS, KC_AMPR, KC_LPRN, KC_RPRN, KC_TILD,                      KC_HOME, KC_LEFT, KC_DOWN,  KC_RIGHT,  KC_UP, KC_DEL,
+      KC_LSFT, KC_BSLS, KC_AMPR, KC_LPRN, KC_RPRN, KC_LBRC,                      KC_HOME, KC_LEFT, KC_DOWN,  KC_RIGHT,  KC_UP, KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, MT(MOD4KC, KC_LCBR), MT(MOD3KC, KC_RCBR), MT(MOD2KC, KC_LBRC), MT(MOD1KC, KC_RBRC), KC_SCLN,                      KC_LALT, MT(MOD1KC, KC_END), MT(MOD2KC, KC_COMM), MT(MOD3KC, KC_DOT), MT(MOD4KC, KC_SLSH), _______,
+      KC_LCTL, MT(MOD4KC, KC_LCBR), MT(MOD3KC, KC_RCBR), MT(MOD2KC, KC_TILD), MT(MOD1KC, KC_RBRC), KC_SCLN,                      KC_LALT, MT(MOD1KC, KC_END), MT(MOD2KC, KC_COMM), MT(MOD3KC, KC_DOT), MT(MOD4KC, KC_SLSH), _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           MT(MOD_LSFT, KC_LGUI),   MO(_FUNC),  KC_SPC,     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -224,12 +224,12 @@ void oled_render_layerstate(void) {
     // oled_set_cursor(oled_max_chars()/2, 1);
     switch (get_highest_layer(layer_state)) {
         case _BASE:
-            oled_write_ln_P(PSTR("B\na\ns\ne"), false);
-            // oled_write_ln_P(PSTR("B  A\na\ns\ne"), false);
-            // oled_write_ln_P(PSTR("D  A\ne\nf\na\nu\nl\nt"), false);
+            // oled_write_ln_P(PSTR("B\na\ns\ne"), false);
+            // oled_write_ln_P(PSTR("~"), false);
+            oled_write_ln_P(PSTR(">_"), false);
             break;
         case _FIRST:
-            oled_write_ln_P(PSTR("N  7\nu\nm\nb\ne\nr\ns"), false);
+            oled_write_ln_P(PSTR("N  7\nu\nm"), false);
             break;
         case _SECOND:
             oled_write_ln_P(PSTR("S  @\ny\nm\nb\no\nl\ns"), false);
@@ -238,7 +238,7 @@ void oled_render_layerstate(void) {
             oled_write_ln_P(PSTR("G\na\nm\ne"), false);
             break;
         case _GAMING_NUM:
-            oled_write_ln_P(PSTR("G\na\nm\ne\n|\nN\nU\nM"), false);
+            oled_write_ln_P(PSTR("G  7\na\nm\ne\n|\nN\nU\nM"), false);
             break;
         case _FUNC:
             oled_write_ln_P(PSTR("F Fn\nu\nn\nc\nt\ni\no\nn"), false);

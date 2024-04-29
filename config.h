@@ -29,7 +29,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 // #define QUICK_TAP_TERM 250
-#define TAPPING_TERM 180
+#define TAPPING_TERM 140
+// #define HOLD_ON_OTHER_KEY_PRESS
+#undef PERMISSIVE_HOLD
+#undef PREVENT_STUCK_MODIFIERS
+#define IGNORE_MOD_TAP_INTERRUPT
+// #define PERMISSIVE_HOLD_PER_KEY
+// #define RETRO_TAPPING
 
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING
